@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "76074105699-n3cl11ndj1ctfrhk7dca97etpnd826j4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.car4rent",
+            "certificate_hash": "36c23b82d7859ba5288a8d63c97e2eebe28cfc69"
+          }
+        },
+        {
           "client_id": "76074105699-k8vi1h8asgdljfg8hte7k68i417tssvs.apps.googleusercontent.com",
           "client_type": 3
         }

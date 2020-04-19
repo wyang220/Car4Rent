@@ -1,7 +1,9 @@
 package com.example.car4rent
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -10,5 +12,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //testing tan
         //Change ma
+        Toast.makeText(applicationContext, "firebase connection success", Toast.LENGTH_LONG).show()
     }
 }
