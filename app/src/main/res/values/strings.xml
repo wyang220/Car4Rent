@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Car4Rent</string>
+<!--    <String name="carModel">Car Model</String>-->
+<!--    <String name="transmition">Transmition Type</String>-->
+<!--    <String name="capacity">Capacity</String>-->
+<!--    <String name="price">Price</String>-->
 </resources>
