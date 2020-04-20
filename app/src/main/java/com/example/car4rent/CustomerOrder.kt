@@ -1,3 +1,8 @@
 package com.example.car4rent
 
-class CustomerOrder(val id: String, val testdate: String, val testtime: String)
+class CustomerOrder(val id: String, val testdate: String, val testtime: String){
+
+    constructor() : this("","",""){
+
+    }
+}

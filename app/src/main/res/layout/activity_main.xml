@@ -37,4 +37,12 @@
         tools:layout_editor_absoluteX="182dp"
         tools:layout_editor_absoluteY="474dp" />
 
+    <ListView
+        android:id="@+id/order_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    //listview
+
+
 </LinearLayout>
