@@ -8,8 +8,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.booking.*
 import java.text.SimpleDateFormat
@@ -17,16 +19,16 @@ import java.util.*
 
 class BookingActivity: AppCompatActivity() {
 
-    private var carImage: ImageView? = null
-    private var car_Name: TextView? = null
-    private  var transmitions:TextView? = null
-    private  var capacitys:TextView? = null
-    private  var prices:TextView? = null
-    lateinit var carID: String
+    lateinit var carImage: ImageView
+    lateinit var car_Name: TextView
+    lateinit  var transmitions:TextView
+    lateinit  var capacitys:TextView
+    lateinit  var prices:TextView
+    private var carID: String? = null
     //for firedatabase and recyclerview
-    lateinit var ref: DatabaseReference
-    lateinit var recyclerView: RecyclerView
-    lateinit var layoutManager: RecyclerView.LayoutManager
+//    lateinit var ref: DatabaseReference
+//    lateinit var recyclerView: RecyclerView
+//    lateinit var layoutManager: RecyclerView.LayoutManager
 
 //for time and date
     var formate = SimpleDateFormat("dd MMM, YYYY", Locale.US)
@@ -35,17 +37,17 @@ class BookingActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.booking)
-
+//        ref = FirebaseDatabase.getInstance().reference.child("Car")
         carID = intent.getStringExtra("carId")
 
         carImage = findViewById<View>(R.id.carImage) as ImageView
+
         car_Name = findViewById<View>(R.id.car_Name) as TextView
         transmitions = findViewById<View>(R.id.transmitions) as TextView
         capacitys = findViewById<View>(R.id.capacitys) as TextView
         prices = findViewById<View>(R.id.prices) as TextView
-        getProductDetail(carID)
-        //go to next page
-        //addToCart!!.setOnClickListener { addingToCartList() }
+
+        getCarDetail(carID)
 
        // select time and date
         btn_show.setOnClickListener {
@@ -84,20 +86,24 @@ class BookingActivity: AppCompatActivity() {
         }
     }
 
-    private fun getProductDetail(carID: String) {
-        val productsRef = FirebaseDatabase.getInstance().reference.child("Car")
-        productsRef.child(carID).addValueEventListener(object : ValueEventListener {
+    private fun getCarDetail(carID: String?) {
+
+        val ref = FirebaseDatabase.getInstance().reference.child("Car")
+        ref.child(carID!!).addValueEventListener(object : ValueEventListener {
+
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    val products = dataSnapshot.getValue(Product::class.java)
-                    car_Name!!.text = products!!.carModel
-                    transmitions!!.text = products!!.transmition
-                    capacitys!!.text = products!!.capacity
-                    car_Name!!.text = products!!.price
-                    Picasso.get().load(products!!.image).into(carImage)
+                    val product = dataSnapshot.getValue(Product::class.java)
+                    car_Name!!.text = product!!.carModel
+                    transmitions!!.text = product.transmition
+                    capacitys!!.text = product.capacity
+                    car_Name!!.text = product.price
+                    Picasso.get().load(product.image).into(carImage)
                 }
             }
+
             override fun onCancelled(databaseError: DatabaseError) {
+            //Toast.makeText()
             }
         })
     }

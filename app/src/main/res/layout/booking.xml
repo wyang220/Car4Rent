@@ -33,14 +33,14 @@
                 android:textColor="@color/colorPrimaryDark"/>
 
             <TextView
-                android:id="@+id/transmitions"
+                android:id="@+id/_transmition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Product Price"
                 android:textAlignment="center"/>
 
             <TextView
-                android:id="@+id/capacitys"
+                android:id="@+id/_capacity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Product Description"
@@ -48,7 +48,7 @@
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/prices"
+                android:id="@+id/_prices"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Prices"

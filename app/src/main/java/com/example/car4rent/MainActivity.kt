@@ -12,7 +12,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.car4rent.MainActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -139,7 +138,7 @@ class MainActivity : AppCompatActivity() {
         CarRef!!.child(productRandomKey!!).updateChildren(carMap)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val intent = Intent(this@MainActivity, MainActivity::class.java)
+                    val intent = Intent(this@MainActivity, test::class.java)
                     startActivity(intent)
                     loadingBar!!.dismiss()
                     Toast.makeText(this@MainActivity, "Car added successfully", Toast.LENGTH_SHORT).show()
