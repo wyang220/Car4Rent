@@ -5,12 +5,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-    var _carName: TextView = itemView.findViewById<View>(R.id.car_Name) as TextView
-    var _transmition: TextView = itemView.findViewById<View>(R.id.transmitions) as TextView
-    var _capacity: TextView = itemView.findViewById<View>(R.id.capacitys) as TextView
-    var _price: TextView = itemView.findViewById<View>(R.id.prices) as TextView
-    var _imageView: ImageView = itemView.findViewById<View>(R.id.carImage) as ImageView
+class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    var ccarName: TextView = itemView.findViewById<View>(R.id.car_Name) as TextView
+    var ctransmition: TextView = itemView.findViewById<View>(R.id.transmitions) as TextView
+    var ccapacity: TextView = itemView.findViewById<View>(R.id.capacitys) as TextView
+    var cprice: TextView = itemView.findViewById<View>(R.id.prices) as TextView
+    var cimageView: ImageView = itemView.findViewById<View>(R.id.carImage) as ImageView
 
 
     var listner: ItemClickListner? = null
@@ -19,8 +19,16 @@ class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), Vie
         this.listner = listner
     }
 
-    override fun onClick(view: View) {
+     fun onClick(view: View) {
         listner!!.onClick(view, adapterPosition, false)
+    }
+
+    init {
+        ccarName = itemView.findViewById<View>(R.id.car_Name) as TextView
+        ctransmition = itemView.findViewById<View>(R.id.transmitions) as TextView
+        ccapacity = itemView.findViewById<View>(R.id.capacitys) as TextView
+        cprice = itemView.findViewById<View>(R.id.prices) as TextView
+        cimageView = itemView.findViewById<View>(R.id.carImage) as ImageView
     }
 
 }

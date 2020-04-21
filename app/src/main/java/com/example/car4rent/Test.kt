@@ -16,7 +16,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso
 
-class test: AppCompatActivity(){
+class Test: AppCompatActivity(){
 
     private var ref: DatabaseReference? = null
     private var recyclerView: RecyclerView? = null
@@ -44,17 +44,15 @@ class test: AppCompatActivity(){
             .build()
         val adapter: FirebaseRecyclerAdapter<Products, ProductViewHolder> = object:
             FirebaseRecyclerAdapter<Products, ProductViewHolder>(options) {
-
             override fun onBindViewHolder(holder: ProductViewHolder, position: Int, model:Products) {
-
-                holder._carName.text = model.getcarModel()
-                holder._transmition.text = model.gettransmition()
-                holder._capacity.text = model.getcapacity()
-                holder._price.text = "Price = RM " + model.getprice()+ " .00 "
-                Picasso.get().load(model.image).into(holder._imageView)
+                holder.ccarName.text = model.getcarModel()
+                holder.ctransmition.text = model.gettransmition()
+                holder.ccapacity.text = model.getcapacity()
+                holder.cprice.text = "Price = RM " + model.getprice()+ " .00 "
+                Picasso.get().load(model.image).into(holder.cimageView)
 
                 holder.itemView.setOnClickListener {
-                    val intent = Intent(this@test, BookingActivity::class.java)
+                    val intent = Intent(this@Test, BookingActivity::class.java)
                     intent.putExtra("carId",model.carId)
                     startActivity(intent)
                 }

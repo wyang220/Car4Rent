@@ -6,29 +6,23 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.booking.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class BookingActivity: AppCompatActivity() {
+    var Product: TextView? = null
+    private var car_Name: TextView? = null
+    private  var transmitions:TextView? = null
+    private  var carImage : ImageView? = null
+    private  var capacitys:TextView? = null
+    private  var prices:TextView? = null
+    private var cardID: String? = null
+     var ref: DatabaseReference? = null
 
-    lateinit var carImage: ImageView
-    lateinit var car_Name: TextView
-    lateinit  var transmitions:TextView
-    lateinit  var capacitys:TextView
-    lateinit  var prices:TextView
-    private var carID: String? = null
-    //for firedatabase and recyclerview
-//    lateinit var ref: DatabaseReference
-//    lateinit var recyclerView: RecyclerView
-//    lateinit var layoutManager: RecyclerView.LayoutManager
 
 //for time and date
     var formate = SimpleDateFormat("dd MMM, YYYY", Locale.US)
@@ -38,66 +32,74 @@ class BookingActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.booking)
 //        ref = FirebaseDatabase.getInstance().reference.child("Car")
-        carID = intent.getStringExtra("carId")
+       // carID = intent.getStringExtra("carId")
 
-        carImage = findViewById<View>(R.id.carImage) as ImageView
+
+
+
+        cardID = intent.extras!!["carId"].toString()
+
+        ref = FirebaseDatabase.getInstance().reference.child("Car").child(cardID!!)
+        Product = findViewById<View>(R.id.Products) as TextView
+        Product!!.text = cardID
 
         car_Name = findViewById<View>(R.id.car_Name) as TextView
-        transmitions = findViewById<View>(R.id.transmitions) as TextView
-        capacitys = findViewById<View>(R.id.capacitys) as TextView
-        prices = findViewById<View>(R.id.prices) as TextView
+        transmitions = findViewById<View>(R.id._transmition) as TextView
+        capacitys = findViewById<View>(R.id._capacity) as TextView
+        prices = findViewById<View>(R.id._prices) as TextView
+        carImage = findViewById<View>(R.id.car_Image) as ImageView
+       // getProductDetails(cardID!!)
+        getCarDetail(cardID)
 
-        getCarDetail(carID)
+
 
        // select time and date
         btn_show.setOnClickListener {
             val now = Calendar.getInstance()
-            val dateTv = DatePickerDialog(
-                this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                    val selectedDate = Calendar.getInstance()
-                    selectedDate.set(Calendar.YEAR, year)
-                    selectedDate.set(Calendar.MONTH, month)
-                    selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    val date = formate.format(selectedDate.time)
-                    dateTv.setText(date)
-                    Toast.makeText(this, "date : " + date, Toast.LENGTH_SHORT).show()
-                },
-                now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH)
-            )
 
-            dateTv.show()
-            val timePicker = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                val selectedTime = Calendar.getInstance()
-                selectedTime.set(Calendar.HOUR_OF_DAY,hourOfDay)
-                selectedTime.set(Calendar.MINUTE,minute)
-                val time = timeFormat.format(selectedTime.time)
-                timeTv.setText(time)
+            val dateTv = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(Calendar.YEAR,year)
+                selectedDate.set(Calendar.MONTH,month)
+                selectedDate.set(Calendar.DAY_OF_MONTH,dayOfMonth)
+                 dateTv.text = formate.format(selectedDate.time)
             },
-                now.get(Calendar.HOUR_OF_DAY),now.get(Calendar.MINUTE),false)
-            timePicker.show()
+                    now.get(Calendar.YEAR),now.get(Calendar.MONTH),now.get(Calendar.DAY_OF_MONTH))
+            dateTv.show()
+
             try {
-                if(btn_show.text != "Pick Date and Time") {
+                if(btn_show.text != "Show Dialog") {
                     val date = timeFormat.parse(btn_show.text.toString())
                     now.time = date
                 }
             }catch (e:Exception){
                 e.printStackTrace()
             }
+
+            val timeTv = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                val selectedTime = Calendar.getInstance()
+                selectedTime.set(Calendar.HOUR_OF_DAY,hourOfDay)
+                selectedTime.set(Calendar.MINUTE,minute)
+                timeTv.text = timeFormat.format(selectedTime.time)
+            },
+                now.get(Calendar.HOUR_OF_DAY),now.get(Calendar.MINUTE),false)
+            timeTv.show()
         }
+
     }
 
-    private fun getCarDetail(carID: String?) {
-
+    private fun getCarDetail(cardID: String?) {
         val ref = FirebaseDatabase.getInstance().reference.child("Car")
-        ref.child(carID!!).addValueEventListener(object : ValueEventListener {
+        ref.child(cardID!!).addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    val product = dataSnapshot.getValue(Product::class.java)
-                    car_Name!!.text = product!!.carModel
-                    transmitions!!.text = product.transmition
-                    capacitys!!.text = product.capacity
-                    car_Name!!.text = product.price
+                    val product :  Products = dataSnapshot.getValue<Products>(com.example.car4rent.Products::class.java)!!
+
+                    car_Name!!.setText(product.getcarModel())
+                    transmitions!!.setText(product.gettransmition())
+                    prices!!.setText(product.getprice())
+                    capacitys!!.setText(product.getcapacity())
                     Picasso.get().load(product.image).into(carImage)
                 }
             }
@@ -106,5 +108,10 @@ class BookingActivity: AppCompatActivity() {
             //Toast.makeText()
             }
         })
+    }
+
+
+    fun confirm_button(view: View?) {
+
     }
 }

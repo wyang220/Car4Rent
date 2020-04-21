@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         ImagesRef = FirebaseStorage.getInstance().reference.child("Car Images")
         CarRef = FirebaseDatabase.getInstance().reference.child("Car")
         AddNewProductButton = findViewById<View>(R.id.btnUpload) as Button
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         AddNewProductButton!!.setOnClickListener { ValidateProductData() }
 
         btn.setOnClickListener {
-            val intent = Intent(this,test::class.java)
+            val intent = Intent(this,Test::class.java)
             // start your next activity
             startActivity(intent)
         }
@@ -138,7 +139,7 @@ class MainActivity : AppCompatActivity() {
         CarRef!!.child(productRandomKey!!).updateChildren(carMap)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val intent = Intent(this@MainActivity, test::class.java)
+                    val intent = Intent(this@MainActivity, Test::class.java)
                     startActivity(intent)
                     loadingBar!!.dismiss()
                     Toast.makeText(this@MainActivity, "Car added successfully", Toast.LENGTH_SHORT).show()
@@ -153,5 +154,6 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val GalleryPick = 1
     }
+
 }
 
