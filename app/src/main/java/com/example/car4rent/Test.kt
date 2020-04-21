@@ -2,7 +2,6 @@ package com.example.car4rent
 
 import android.app.ProgressDialog
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,13 +16,12 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso
 
-class test: AppCompatActivity() {
-    private val PICK_IMAGE_REQUEST = 1234
-    private var filePath: Uri? = null
-    lateinit var ref: DatabaseReference
-    lateinit var recyclerView: RecyclerView
-    lateinit var layoutManager: RecyclerView.LayoutManager
-    lateinit var shirt: ImageView
+class Test: AppCompatActivity(){
+
+    private var ref: DatabaseReference? = null
+    private var recyclerView: RecyclerView? = null
+    var layoutManager: RecyclerView.LayoutManager? = null
+    private var shirt: ImageView? = null
     lateinit var loadingBar: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,19 +39,20 @@ class test: AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val options = FirebaseRecyclerOptions.Builder<Product>()
-            .setQuery(ref!!, Product::class.java)
+        val options = FirebaseRecyclerOptions.Builder<Products>()
+            .setQuery(ref!!, Products::class.java)
             .build()
-        val adapter: FirebaseRecyclerAdapter<Product, ProductViewHolder> = object : FirebaseRecyclerAdapter<Product, ProductViewHolder>(options) {
-            override fun onBindViewHolder(holder: ProductViewHolder, position: Int, model:Product) {
-                holder._carName.text = model.carModel
-                holder._transmition.text = model.transmition
-                holder._capacity.text = model.capacity
-                holder._price.text = "Price = RM " + model.price + " .00 "
-                Picasso.get().load(model.image).into(holder._imageView)
+        val adapter: FirebaseRecyclerAdapter<Products, ProductViewHolder> = object:
+            FirebaseRecyclerAdapter<Products, ProductViewHolder>(options) {
+            override fun onBindViewHolder(holder: ProductViewHolder, position: Int, model:Products) {
+                holder.ccarName.text = model.getcarModel()
+                holder.ctransmition.text = model.gettransmition()
+                holder.ccapacity.text = model.getcapacity()
+                holder.cprice.text = "Price = RM " + model.getprice()+ " .00 "
+                Picasso.get().load(model.image).into(holder.cimageView)
 
                 holder.itemView.setOnClickListener {
-                    val intent = Intent(this@test, BookingActivity::class.java)
+                    val intent = Intent(this@Test, BookingActivity::class.java)
                     intent.putExtra("carId",model.carId)
                     startActivity(intent)
                 }
