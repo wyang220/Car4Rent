@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp">
+
+            <ImageView
+                android:id="@+id/carImage"
+                android:layout_width="320dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="2dp" />
+
+            <TextView
+                android:id="@+id/car_Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Car Model"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                />
+
+            <TextView
+                android:id="@+id/transmitions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Car Price"
+                android:textAlignment="center"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/capacitys"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Car Capacity"
+                android:textAlignment="center"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/prices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Car Transmition"
+                android:layout_marginTop="2dp"
+                android:textAlignment="center"
+                android:textSize="14dp"
+                android:textColor="#E80808"/>
+
+
+        </LinearLayout>
+</RelativeLayout>

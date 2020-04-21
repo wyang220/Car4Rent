@@ -78,23 +78,10 @@
             android:layout_marginTop="9dp" />
 
         <LinearLayout
-            android:weightSum="2"
+            android:weightSum="1"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/btnChoose"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_margin="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:background="@color/common_google_signin_btn_text_dark_focused"
-                android:text="SELECT IMAGE"
-                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/btnUpload"
@@ -108,26 +95,15 @@
                 android:background="@color/common_google_signin_btn_text_dark_focused"
                 android:text="Upload"
                 android:textColor="@android:color/white" />
+
+
+
         </LinearLayout>
         <Button
-            android:id="@+id/btn_show"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Pick Date" />
-
-
-        <TextView
-            android:id="@+id/dateTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date"/>
-        <TextView
-            android:id="@+id/timeTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Time"/>
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+            android:text="go see car"/>
     </LinearLayout>
-
-
 
 </RelativeLayout>
