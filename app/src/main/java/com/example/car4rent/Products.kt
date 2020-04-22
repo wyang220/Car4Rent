@@ -17,7 +17,6 @@ class Products {
         this.capacity = capacity
     }
 
-
     fun getcarModel(): String?{
         return carModel
     }
